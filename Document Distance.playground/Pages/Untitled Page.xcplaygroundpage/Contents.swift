@@ -160,3 +160,30 @@ let searchResults = searchEngine(searchStr)
 for result in searchResults {
     print(result + "\n")
 }
+
+/*
+
+searchResults:
+
+Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
+
+location
+
+Let Apple help apps determine location. This means sending anonymous location data to Apple, even when no apps are running.
+
+Find location. Singapore ... Full address, city or postcode. Go. Home > Find Locations. Copyright © 2016 Apple Inc. All rights reserved. Terms of Use
+
+Hello this is Liuliet.Lee~
+
+Rediscover the places you’ve been and the routes you’ve traveled in your timeline. Only you can see your timeline.
+
+*/
+
+
+
+
+
+
+
+
+
