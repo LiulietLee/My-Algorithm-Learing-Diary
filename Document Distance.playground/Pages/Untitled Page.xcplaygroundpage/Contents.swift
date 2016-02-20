@@ -2,20 +2,20 @@
 
 import Foundation
 
+let DOCUMENTS = ["location",
+    
+    "Hello this is Liuliet.Lee~",
+    
+    "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.",
+    
+    "Let Apple help apps determine location. This means sending anonymous location data to Apple, even when no apps are running.",
+    
+    "Rediscover the places you’ve been and the routes you’ve traveled in your timeline. Only you can see your timeline.",
+    
+    "Find location. Singapore ... Full address, city or postcode. Go. Home > Find Locations. Copyright © 2016 Apple Inc. All rights reserved. Terms of Use"]
+
 func searchEngine(searchString: String) -> [String] {
-    let documents = [searchString,
-        
-        "location",
-        
-        "Hello this is Liuliet.Lee~",
-        
-        "Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.",
-        
-        "Let Apple help apps determine location. This means sending anonymous location data to Apple, even when no apps are running.",
-        
-        "Rediscover the places you’ve been and the routes you’ve traveled in your timeline. Only you can see your timeline.",
-        
-        "Find location. Singapore ... Full address, city or postcode. Go. Home > Find Locations. Copyright © 2016 Apple Inc. All rights reserved. Terms of Use"]
+    let documents = [searchString] + DOCUMENTS
     
     var dics = [[String: Int]]()
     var numberOfWordsOfSearchString = 0
