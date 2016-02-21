@@ -14,7 +14,7 @@ let DOCUMENTS = ["location",
     
     "Find location. Singapore ... Full address, city or postcode. Go. Home > Find Locations. Copyright © 2016 Apple Inc. All rights reserved. Terms of Use"]
 
-func searchEngine(searchString: String) -> [String] {
+func searchEngine(searchString: String) -> String {
     let documents = [searchString] + DOCUMENTS
     
     var dics = [[String: Int]]()
@@ -144,22 +144,14 @@ func searchEngine(searchString: String) -> [String] {
     
     Documents.sortInPlace({$0.cos > $1.cos})
     
-    var returnDocs = [String]()
-    
-    for doc in Documents {
-        returnDocs += [doc.content]
-    }
-    
-    return returnDocs
+    return Documents[0].content
 }
 
 let searchStr = "Google location"
 
 let searchResults = searchEngine(searchStr)
 
-for result in searchResults {
-    print(result + "\n")
-}
+print(searchResults)
 
 /*
 
@@ -167,23 +159,4 @@ searchResults:
 
 Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
 
-location
-
-Let Apple help apps determine location. This means sending anonymous location data to Apple, even when no apps are running.
-
-Find location. Singapore ... Full address, city or postcode. Go. Home > Find Locations. Copyright © 2016 Apple Inc. All rights reserved. Terms of Use
-
-Hello this is Liuliet.Lee~
-
-Rediscover the places you’ve been and the routes you’ve traveled in your timeline. Only you can see your timeline.
-
 */
-
-
-
-
-
-
-
-
-
