@@ -20,7 +20,7 @@ int main(void) {
     scanf(" %d",&n); 
     
     printf("\n Now enter the array elements: "); 
-    for (i = 1;  i <= n;  i++) {
+    for (i = 1; i <= n; i++) {
         scanf(" %d", &k[i]); 
     }
     
@@ -48,15 +48,15 @@ void crheap(int k[], int n) {
         child = q; 
         parent = (int)child/2; 
         
-        while (child >1 && k[child] > k[parent]) {
+        while (child > 1 && k[child] > k[parent]) {
         
             temp = k[child];
-            k[child] =  k[parent]; 
+            k[child] = k[parent];
             k[parent] = temp; 
             child = parent; 
             parent = (int)child/2; 
             
-            if (parent  <1) {
+            if (parent < 1) {
                 parent = 1; 
             }
         }
@@ -71,9 +71,9 @@ void crheap(int k[], int n) {
 /* function to sort a heap */
 void processheap(int k[], int n) {
     
-    int current,  parent,  child,  i,  maxnodes; 
+    int current, parent, child, i, maxnodes;
     
-    for (maxnodes = n;  maxnodes >= 2;  maxnodes--) {
+    for (maxnodes = n; maxnodes >= 2; maxnodes--) {
 
         current = k[maxnodes]; 
         k[maxnodes] = k[1]; 
