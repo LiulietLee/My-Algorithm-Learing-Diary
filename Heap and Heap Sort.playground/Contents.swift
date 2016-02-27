@@ -49,3 +49,12 @@ print("Heap = " + "\(heap)")
 
 heap = sortHeap(heap)
 print("Sorted Heap = " + "\(heap)")
+
+/*
+
+result:
+
+Heap = [14, 13, 9, 6, 12, 7, 8, 1, 5, 4, 10, 2, 3, 0]
+Sorted Heap = [14, 13, 12, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+
+*/
