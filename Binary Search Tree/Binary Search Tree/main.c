@@ -1,9 +1,9 @@
 //
-//  main->c
+//  main.c
 //  Binary Search Tree
 //
-//  Created by Liuliet->Lee on 27/2/2016->
-//  Copyright © 2016 Liuliet->Lee-> All rights reserved->
+//  Created by Liuliet->Lee on 27/2/2016.
+//  Copyright © 2016 Liuliet.Lee. All rights reserved.
 //
 
 #include <stdio.h>
