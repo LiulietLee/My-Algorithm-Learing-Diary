@@ -203,6 +203,29 @@ int maxTree() {
     return node->value;
 }
 
+void printSortedValues(struct Node *node) {
+    if (node->leftNode == nil) {
+        printf("\n%d", node->value);
+        
+        if (node->rightNode != nil) {
+            struct Node *n = node->rightNode;
+            printSortedValues(n);
+            
+            return;
+        }
+    } else {
+        struct Node *n = node->leftNode;
+        printSortedValues(n);
+        
+        printf("\n%d", node->value);
+    }
+    
+    if (node->rightNode != nil) {
+        struct Node *n = node->rightNode;
+        printSortedValues(n);
+    }
+}
+
 int main(int argc, const char * argv[]) {
     createTree(10);
     
@@ -227,7 +250,10 @@ int main(int argc, const char * argv[]) {
 
     printf("Min number = %d\n", minTree());
     printf("Max number = %d\n", maxTree());
-
+     
+    printSortedValues(head->leftNode);
+    printf("\n");
+    
     return 0;
 }
 
@@ -240,5 +266,11 @@ int main(int argc, const char * argv[]) {
  Now the number of nodes in the tree = 5
  Min number = 2
  Max number = 21
+ 
+ 2
+ 10
+ 18
+ 19
+ 21
  
  */
