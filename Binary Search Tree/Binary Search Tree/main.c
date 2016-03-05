@@ -13,7 +13,7 @@
 
 struct Node {
     int value;
-    int numberOfSubtree;
+    int numberOfNodes;
     struct Node *upNode;
     struct Node *leftNode;
     struct Node *rightNode;
@@ -26,7 +26,7 @@ void createTree(int firstValue) {
     head = (struct Node*)malloc(sizeof(struct Node));
     
     node->value = firstValue;
-    node->numberOfSubtree = 1;
+    node->numberOfNodes = 1;
     node->upNode = head;
     node->leftNode = nil;
     node->rightNode = nil;
@@ -38,14 +38,14 @@ void InsertNode(int newValue) {
     struct Node *node = head->leftNode;
     
     while (1) {
-        node->numberOfSubtree++;
+        node->numberOfNodes++;
         
         if (newValue <= node->value) {
             if (node->leftNode == nil) {
                 struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
                 
                 newNode->value = newValue;
-                newNode->numberOfSubtree = 1;
+                newNode->numberOfNodes = 1;
                 newNode->upNode = node;
                 newNode->leftNode = nil;
                 newNode->rightNode = nil;
@@ -61,7 +61,7 @@ void InsertNode(int newValue) {
                 struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
                 
                 newNode->value = newValue;
-                newNode->numberOfSubtree = 1;
+                newNode->numberOfNodes = 1;
                 newNode->upNode = node;
                 newNode->leftNode = nil;
                 newNode->rightNode = nil;
@@ -77,7 +77,7 @@ void InsertNode(int newValue) {
 }
 
 int numberOfNodes() {
-    int num = head->leftNode->numberOfSubtree;
+    int num = head->leftNode->numberOfNodes;
     return num;
 }
 
@@ -116,7 +116,7 @@ int deleteNode(int valueOfNode) {
     int leftOrRight = 0;
     
     while (1) {
-        node->numberOfSubtree--;
+        node->numberOfNodes--;
         
         if (valueOfNode < node->value) {
             node = node->leftNode;
@@ -158,11 +158,11 @@ int deleteNode(int valueOfNode) {
                 return 1;
             } else {
                 struct Node *n = node->rightNode;
-                n->numberOfSubtree += node->leftNode->numberOfSubtree;
+                n->numberOfNodes += node->leftNode->numberOfNodes;
 
                 while (n->leftNode != nil) {
                     n = n->leftNode;
-                    n->numberOfSubtree += node->leftNode->numberOfSubtree;
+                    n->numberOfNodes += node->leftNode->numberOfNodes;
                 }
                 
                 node->leftNode->upNode = n;
