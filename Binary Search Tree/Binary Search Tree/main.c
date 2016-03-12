@@ -226,10 +226,68 @@ void printSortedValues(struct Node *node) {
     }
 }
 
+int nextLarger(int item) {
+    struct Node *node = head->leftNode;
+    
+    while (node->value != item) {
+        if (item < node->value) {
+            if (node->leftNode == nil) {
+                printf("Cannot find item!\n");
+                return 0;
+            }
+            
+            node = node->leftNode;
+        } else {
+            if (node->rightNode == nil) {
+                printf("Cannot find item!\n");
+                return 0;
+            }
+            
+            node = node->rightNode;
+        }
+    }
+    
+    if (node->rightNode == nil) {
+        printf("This is the largest item of this BST");
+        return 0;
+    }
+    
+    return node->rightNode->value;
+}
+
+int nextSmaller(int item) {
+    struct Node *node = head->leftNode;
+    
+    while (node->value != item) {
+        if (item < node->value) {
+            if (node->leftNode == nil) {
+                printf("Cannot find item!\n");
+                return 0;
+            }
+            
+            node = node->leftNode;
+        } else {
+            if (node->rightNode == nil) {
+                printf("Cannot find item!\n");
+                return 0;
+            }
+            
+            node = node->rightNode;
+        }
+    }
+    
+    if (node->leftNode == nil) {
+        printf("This is the largest item of this BST");
+        return 0;
+    }
+    
+    return node->leftNode->value;
+}
+
 int main(int argc, const char * argv[]) {
     createTree(10);
     
-    int insertArray[] = {1, 2, 20, 19, 18, 21};
+    int insertArray[] = {5, 20, 1, 9, 0, 2, 8, 15, 29};
     int lengthOfArray = sizeof(insertArray) / sizeof(insertArray[0]);
     for (int i = 0; i < lengthOfArray; i++) {
         InsertNode(insertArray[i]);
@@ -238,11 +296,6 @@ int main(int argc, const char * argv[]) {
     int number = numberOfNodes();
     printf("Now the number of nodes in the tree = %d\n", number);
     
-    deleteNode(20);
-
-    number = numberOfNodes();
-    printf("Now the number of nodes in the tree = %d\n", number);
-
     deleteNode(1);
     
     number = numberOfNodes();
@@ -250,7 +303,10 @@ int main(int argc, const char * argv[]) {
 
     printf("Min number = %d\n", minTree());
     printf("Max number = %d\n", maxTree());
-     
+    
+    printf("20's next Larger = %d\n", nextLarger(20));
+    printf("20's next smaller = %d\n", nextSmaller(20));
+    
     printSortedValues(head->leftNode);
     printf("\n");
     
@@ -261,16 +317,21 @@ int main(int argc, const char * argv[]) {
  
  Print:
  
- Now the number of nodes in the tree = 7
- Now the number of nodes in the tree = 6
- Now the number of nodes in the tree = 5
- Min number = 2
- Max number = 21
+ Now the number of nodes in the tree = 10
+ Now the number of nodes in the tree = 9
+ Min number = 0
+ Max number = 29
+ 20's next Larger = 29
+ 20's next smaller = 15
  
+ 0
  2
+ 5
+ 8
+ 9
  10
- 18
- 19
- 21
+ 15
+ 20
+ 29
  
  */
