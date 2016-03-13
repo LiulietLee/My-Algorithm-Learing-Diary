@@ -11,304 +11,182 @@
 
 #define nil NULL
 
-struct Node {
+typedef struct Node {
     int value;
-    int numberOfNodes;
-    struct Node *upNode;
     struct Node *leftNode;
     struct Node *rightNode;
-};
+} treeNode;
 
-struct Node *head;
-
-void createTree(int firstValue) {
-    struct Node *node = (struct Node*)malloc(sizeof(struct Node));
-    head = (struct Node*)malloc(sizeof(struct Node));
-    
-    node->value = firstValue;
-    node->numberOfNodes = 1;
-    node->upNode = head;
-    node->leftNode = nil;
-    node->rightNode = nil;
-
-    head->leftNode = node;
-}
-
-void InsertNode(int newValue) {
-    struct Node *node = head->leftNode;
-    
-    while (1) {
-        node->numberOfNodes++;
-        
-        if (newValue <= node->value) {
-            if (node->leftNode == nil) {
-                struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
-                
-                newNode->value = newValue;
-                newNode->numberOfNodes = 1;
-                newNode->upNode = node;
-                newNode->leftNode = nil;
-                newNode->rightNode = nil;
-                
-                node->leftNode = newNode;
-                
-                break;
-            } else {
-                node = node->leftNode;
-            }
-        } else {
-            if (node->rightNode == nil) {
-                struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
-                
-                newNode->value = newValue;
-                newNode->numberOfNodes = 1;
-                newNode->upNode = node;
-                newNode->leftNode = nil;
-                newNode->rightNode = nil;
-                
-                node->rightNode = newNode;
-                
-                break;
-            } else {
-                node = node->rightNode;
-            }
-        }
-    }
-}
-
-int numberOfNodes() {
-    int num = head->leftNode->numberOfNodes;
-    return num;
-}
-
-int findValue(int value) {
-    struct Node *node = head->leftNode;
-
-    while (1) {
-        if (value < node->value) {
-            if (node->leftNode == nil) {
-                printf("Cannot find value %d\n", value);
-                return -1;
-            } else {
-                node = node->leftNode;
-            }
-        } else if (value > node->value) {
-            if (node->rightNode == nil) {
-                printf("Cannot find value %d\n", value);
-                return -1;
-            } else {
-                node = node->rightNode;
-            }
-        } else {
-            return 1;
-        }
-    }
-}
-
-int deleteNode(int valueOfNode) {
-    struct Node *node = head->leftNode;
-    int isExist = findValue(valueOfNode);
-    
-    if (isExist == -1) {
-        return -1;
+treeNode * maxNode(treeNode *node) {
+    if (node == nil) {
+        return nil;
     }
     
-    int leftOrRight = 0;
-    
-    while (1) {
-        node->numberOfNodes--;
-        
-        if (valueOfNode < node->value) {
-            node = node->leftNode;
-            leftOrRight = 0;
-        } else if (valueOfNode > node->value) {
-            node = node->rightNode;
-            leftOrRight = 1;
-        } else {
-            if (node->leftNode == nil && node->rightNode == nil) {
-                if (leftOrRight == 0) {
-                    node->upNode->leftNode = nil;
-                } else {
-                    node->upNode->rightNode = nil;
-                }
-
-                free(node);
-                return 1;
-            } else if (node->rightNode == nil) {
-                node->leftNode->upNode = node->upNode;
-                
-                if (leftOrRight == 0) {
-                    node->upNode->leftNode = node->leftNode;
-                } else {
-                    node->upNode->rightNode = node->leftNode;
-                }
-                
-                free(node);
-                return 1;
-            } else if (node->leftNode == nil) {
-                node->rightNode->upNode = node->upNode;
-                
-                if (leftOrRight == 0) {
-                    node->upNode->leftNode = node->rightNode;
-                } else {
-                    node->upNode->rightNode = node->rightNode;
-                }
-
-                free(node);
-                return 1;
-            } else {
-                struct Node *n = node->rightNode;
-                n->numberOfNodes += node->leftNode->numberOfNodes;
-
-                while (n->leftNode != nil) {
-                    n = n->leftNode;
-                    n->numberOfNodes += node->leftNode->numberOfNodes;
-                }
-                
-                node->leftNode->upNode = n;
-                n->leftNode = node->leftNode;
-                
-                node->rightNode->upNode = node->upNode;
-                
-                if (leftOrRight == 0) {
-                    node->upNode->leftNode = node->rightNode;
-                } else {
-                    node->upNode->rightNode = node->rightNode;
-                }
-                
-                free(node);
-                return 1;
-            }
-        }
-    }
-}
-
-int minTree() {
-    struct Node *node = head->leftNode;
-    
-    while (node->leftNode != nil) {
-        node = node->leftNode;
-    }
-    
-    return node->value;
-}
-
-int maxTree() {
-    struct Node *node = head->leftNode;
-    
-    while (node->rightNode != nil) {
-        node = node->rightNode;
-    }
-    
-    return node->value;
-}
-
-void printSortedValues(struct Node *node) {
-    if (node->leftNode == nil) {
-        printf("\n%d", node->value);
-        
-        if (node->rightNode != nil) {
-            struct Node *n = node->rightNode;
-            printSortedValues(n);
-            
-            return;
-        }
+    if (node->rightNode) {
+        treeNode *n = maxNode(node->rightNode);
+        return n;
     } else {
-        struct Node *n = node->leftNode;
-        printSortedValues(n);
-        
-        printf("\n%d", node->value);
-    }
-    
-    if (node->rightNode != nil) {
-        struct Node *n = node->rightNode;
-        printSortedValues(n);
+        return node;
     }
 }
 
-int nextLarger(int item) {
-    struct Node *node = head->leftNode;
-    
-    while (node->value != item) {
-        if (item < node->value) {
-            if (node->leftNode == nil) {
-                printf("Cannot find item!\n");
-                return 0;
-            }
-            
-            node = node->leftNode;
-        } else {
-            if (node->rightNode == nil) {
-                printf("Cannot find item!\n");
-                return 0;
-            }
-            
-            node = node->rightNode;
-        }
+treeNode * minNode(treeNode *node) {
+    if (node == nil) {
+        return nil;
     }
     
-    if (node->rightNode == nil) {
-        printf("This is the largest item of this BST");
-        return 0;
+    if (node->leftNode) {
+        treeNode *n = minNode(node->leftNode);
+        return n;
+    } else {
+        return node;
     }
-    
-    return node->rightNode->value;
 }
 
-int nextSmaller(int item) {
-    struct Node *node = head->leftNode;
+treeNode * searchNode(treeNode *node, int value) {
+    if (node == nil) {
+        return nil;
+    }
     
-    while (node->value != item) {
-        if (item < node->value) {
-            if (node->leftNode == nil) {
-                printf("Cannot find item!\n");
-                return 0;
-            }
-            
-            node = node->leftNode;
+    if (value < node->value) {
+        treeNode *n = searchNode(node->leftNode, value);
+        return n;
+    } else if (value > node->value) {
+        treeNode *n = searchNode(node->rightNode, value);
+        return n;
+    } else {
+        return node;
+    }
+}
+
+treeNode * nextLarger(treeNode *node, int value) {
+    if (node == nil) {
+        return nil;
+    }
+    
+    treeNode *item = searchNode(node, value);
+    
+    if (item == nil || item->rightNode == nil) {
+        return nil;
+    }
+    
+    return item->rightNode;
+}
+
+treeNode * nextSmaller(treeNode *node, int value) {
+    if (node == nil) {
+        return nil;
+    }
+    
+    treeNode *item = searchNode(node, value);
+    
+    if (item == nil || item->leftNode == nil) {
+        return nil;
+    }
+    
+    return item->leftNode;
+}
+
+treeNode * insert(treeNode *node, int value) {
+    if (node == nil) {
+        treeNode *temp;
+        temp = (treeNode *)malloc(sizeof(treeNode));
+        temp->value = value;
+        temp->leftNode = temp->rightNode = nil;
+        return temp;
+    }
+    
+    if (value < node->value) {
+        node->leftNode = insert(node->leftNode, value);
+    } else {
+        node->rightNode = insert(node->rightNode, value);
+    }
+    
+    return node;
+}
+
+treeNode * delete(treeNode *node, int value) {
+    if(node == nil) {
+        printf("Item not found\n");
+    } else if(value < node->value) {
+        node->leftNode = delete(node->leftNode, value);
+    } else if(value > node->value) {
+        node->rightNode = delete(node->rightNode, value);
+    } else {
+        if(node->rightNode && node->leftNode) {
+            treeNode *temp = minNode(node->rightNode);
+            node->value = temp->value;
+            node->rightNode = delete(node->rightNode,temp->value);
         } else {
-            if (node->rightNode == nil) {
-                printf("Cannot find item!\n");
-                return 0;
+            treeNode *temp = node;
+            if(node->leftNode == nil) {
+                node = node->rightNode;
+            } else if(node->rightNode == nil) {
+                node = node->leftNode;
             }
             
-            node = node->rightNode;
+            free(temp);
         }
     }
     
-    if (node->leftNode == nil) {
-        printf("This is the largest item of this BST");
-        return 0;
+    return node;
+}
+
+void printInOrder(treeNode *node) {
+    if (node == nil) {
+        return;
     }
     
-    return node->leftNode->value;
+    printInOrder(node->leftNode);
+    printf("%d ", node->value);
+    printInOrder(node->rightNode);
 }
 
 int main(int argc, const char * argv[]) {
-    createTree(10);
+    treeNode *root = nil;
     
-    int insertArray[] = {5, 20, 1, 9, 0, 2, 8, 15, 29};
+    int insertArray[] = {10, 5, 20, 1, 9, 0, 2, 8, 15, 29};
     int lengthOfArray = sizeof(insertArray) / sizeof(insertArray[0]);
+    
     for (int i = 0; i < lengthOfArray; i++) {
-        InsertNode(insertArray[i]);
+        root = insert(root, insertArray[i]);
     }
     
-    int number = numberOfNodes();
-    printf("Now the number of nodes in the tree = %d\n", number);
+    printInOrder(root); printf("\n");
     
-    deleteNode(1);
+    treeNode *max = maxNode(root);
+    treeNode *min = minNode(root);
     
-    number = numberOfNodes();
-    printf("Now the number of nodes in the tree = %d\n", number);
-
-    printf("Min number = %d\n", minTree());
-    printf("Max number = %d\n", maxTree());
+    if (max == nil) {
+        printf("No items in this tree\n");
+    } else {
+        printf("Max is %d\n", max->value);
+    }
     
-    printf("20's next Larger = %d\n", nextLarger(20));
-    printf("20's next smaller = %d\n", nextSmaller(20));
+    if (min == nil) {
+        printf("No items in this tree\n");
+    } else {
+        printf("Min is %d\n", min->value);
+    }
     
-    printSortedValues(head->leftNode);
-    printf("\n");
+    treeNode *nextL = nextLarger(root, 20);
+    treeNode *nextS = nextSmaller(root, 20);
+    
+    if (nextL == nil) {
+        printf("Cannot find next larger\n");
+    } else {
+        printf("20's next larger is %d\n", nextL->value);
+    }
+    
+    if (nextS == nil) {
+        printf("Cannot find next smaller\n");
+    } else {
+        printf("20's next smaller is %d\n", nextS->value);
+    }
+    
+    root = delete(root, 20);
+    
+    printInOrder(root);
     
     return 0;
 }
@@ -317,21 +195,11 @@ int main(int argc, const char * argv[]) {
  
  Print:
  
- Now the number of nodes in the tree = 10
- Now the number of nodes in the tree = 9
- Min number = 0
- Max number = 29
- 20's next Larger = 29
- 20's next smaller = 15
- 
- 0
- 2
- 5
- 8
- 9
- 10
- 15
- 20
- 29
+ 0 1 2 5 8 9 10 15 20 29
+ Max is 29
+ Min is 0
+ 20's next larger is 29
+ 20's next smaller is 15
+ 0 1 2 5 8 9 10 15 29
  
  */
