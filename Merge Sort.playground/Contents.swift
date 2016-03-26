@@ -3,9 +3,9 @@
 import Foundation
 
 func insertionSort(var array: [Int]) -> [Int] {
-    for var i = 1; i < array.count; i++ {
+    for i in 1 ..< array.count {
         var key = array[i]
-        for var j = i - 1; j >= 0; j-- {
+        for var j = i - 1; j >= 0; j -= 1 {
             if array[j] > key {
                 array[j + 1] = array[j]
                 array[j] = key
@@ -38,10 +38,10 @@ func mergeSort(array: [Int]) -> [Int] {
         
         if leftArray[leftPoint] < rightArray[rightPoint] {
             returnArray += [leftArray[leftPoint]]
-            leftPoint++
+            leftPoint += 1
         } else {
             returnArray += [rightArray[rightPoint]]
-            rightPoint++
+            rightPoint += 1
         }
     }
     
