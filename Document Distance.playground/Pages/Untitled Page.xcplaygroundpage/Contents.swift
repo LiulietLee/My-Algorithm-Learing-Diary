@@ -37,7 +37,7 @@ func searchEngine(searchString: String) -> [String] {
             } else {
                 returnValue += [singleWord]
                 
-                for (var i = 0; i < documents.count; i++) {
+                for i in 0 ..< documents.count {
                     if let _ = dics[i][singleWord] {
                         if i == times {
                             dics[i][singleWord]! += 1
@@ -46,7 +46,7 @@ func searchEngine(searchString: String) -> [String] {
                         if singleWord != "" {
                             if i == times {
                                 if document == documents[0] {
-                                    numberOfWordsOfSearchString++
+                                    numberOfWordsOfSearchString += 1
                                 }
                                 dics[i][singleWord] = 1
                             } else {
@@ -63,7 +63,7 @@ func searchEngine(searchString: String) -> [String] {
         if singleWord != "" {
             returnValue += [singleWord]
             
-            for (var i = 0; i < documents.count; i++) {
+            for i in 0 ..< documents.count {
                 if let _ = dics[i][singleWord] {
                     if i == times {
                         dics[i][singleWord]! += 1
@@ -72,7 +72,7 @@ func searchEngine(searchString: String) -> [String] {
                     if singleWord != "" {
                         if i == times {
                             if document == documents[0] {
-                                numberOfWordsOfSearchString++
+                                numberOfWordsOfSearchString += 1
                             }
                             dics[i][singleWord] = 1
                         } else {
@@ -85,7 +85,7 @@ func searchEngine(searchString: String) -> [String] {
             singleWord = ""
         }
         
-        times++
+        times += 1
     }
     
     var valuesOfEachDocument = [[Int]]()
@@ -107,9 +107,9 @@ func searchEngine(searchString: String) -> [String] {
     }
     denominatorOfSearchString = sqrt(denominatorOfSearchString)
 
-    for var i = 1; i < valuesOfEachDocument.count; i++ {
+    for i in 1 ..< valuesOfEachDocument.count {
         var value = 0
-        for var j = 0; j < valuesOfEachDocument[0].count; j++ {
+        for j in 0 ..< valuesOfEachDocument[0].count {
             value += valuesOfEachDocument[0][j] * valuesOfEachDocument[i][j]
         }
         numerator += [value]
@@ -123,7 +123,7 @@ func searchEngine(searchString: String) -> [String] {
     
     var coses = [Double]()
     
-    for var i = 0; i < numerator.count; i++ {
+    for i in 0 ..< numerator.count {
         var value = Double(numerator[i])
         if value < Double(numberOfWordsOfSearchString) {
             value /= 2
@@ -138,7 +138,7 @@ func searchEngine(searchString: String) -> [String] {
     
     var Documents = [Doc]()
     
-    for var i = 1; i < documents.count; i++ {
+    for i in 1 ..< documents.count {
         Documents += [Doc(content: documents[i], cos: coses[i - 1])]
     }
     

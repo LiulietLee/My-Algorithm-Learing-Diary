@@ -2,10 +2,11 @@
 
 import Foundation
 
-func sorting(var array: [Int]) -> [Int] {
+func sorting(array: [Int]) -> [Int] {
+    var array = array
     for i in 1 ..< array.count {
         var key = array[i]
-        for var j = i - 1; j >= 0; j-- {
+        for var j = i - 1; j >= 0; j -= 1 {
             if array[j] > key {
                 array[j + 1] = array[j]
                 array[j] = key
