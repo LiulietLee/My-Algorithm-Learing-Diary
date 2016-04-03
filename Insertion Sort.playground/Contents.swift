@@ -3,7 +3,7 @@
 import Foundation
 
 func sorting(var array: [Int]) -> [Int] {
-    for var i = 1; i < array.count; i++ {
+    for i in 1 ..< array.count {
         var key = array[i]
         for var j = i - 1; j >= 0; j-- {
             if array[j] > key {
