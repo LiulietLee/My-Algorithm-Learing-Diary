@@ -10,6 +10,12 @@
 
 using namespace std;
 
+void swap(int *i, int *j) {
+    int temp = *i;
+    *i = *j;
+    *j = temp;
+}
+
 void quick_Sort(int *arr, int left, int right) {
     int i = left, j = right;
     int mid = arr[(left + right) / 2];
@@ -23,9 +29,7 @@ void quick_Sort(int *arr, int left, int right) {
         }
         
         if (i <= j) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+            swap(arr[i], arr[j]);
             i++; j--;
         }
     } while (i <= j);
