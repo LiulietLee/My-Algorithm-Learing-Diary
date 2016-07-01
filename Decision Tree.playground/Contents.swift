@@ -14,6 +14,7 @@ func comparison(array: [Int], input: Int) -> String {
         }
         
         return "\(array[middle]) < " + comparison(newArray, input: input)
+    
     } else {
         let newArray = Array(array[0..<middle])
         
