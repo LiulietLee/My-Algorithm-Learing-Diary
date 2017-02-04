@@ -12,12 +12,16 @@
 using namespace std;
 using std::vector;
 
+struct DNA {
+    string text;
+    int fitness;
+};
+
 string target = "to be or not to be, that is the question.";
 string best = "";
-string population[maxPopulation] = { "" };
+DNA population[maxPopulation] = { "" };
 vector<string> matingPool = {};
 int generation = 0;
-int fitness[maxPopulation] = { 0 };
 
 string createNewString() {
     string letters = "abcdefghijklmnopqrstuvwxyz,. ";
@@ -34,20 +38,20 @@ void select() {
     int maxFitness = 0;
     for (int i = 0; i < maxPopulation; i++) {
         for (int j = 0; j < target.length(); j++) {
-            if (population[i][j] == target[j]) {
-                fitness[i]++;
+            if (population[i].text[j] == target[j]) {
+                population[i].fitness++;
             }
         }
-        if (maxFitness < fitness[i]) {
-            maxFitness = fitness[i];
-            best = population[i];
+        if (maxFitness < population[i].fitness) {
+            maxFitness = population[i].fitness;
+            best = population[i].text;
         }
     }
     
     for (int i = 0; i < maxPopulation; i++) {
-        int fit = fitness[i] * 100 / maxFitness;
+        int fit = population[i].fitness * 100 / maxFitness;
         for (int j = 0; j < fit; j++) {
-            matingPool.push_back(population[i]);
+            matingPool.push_back(population[i].text);
         }
     }
 }
@@ -75,15 +79,16 @@ void generate() {
             }
         }
         child = mutate(child);
-        population[i] = child;
-        fitness[i] = 0;
+        population[i].text = child;
+        population[i].fitness = 0;
     }
     generation++;
 }
 
 int main(int argc, const char * argv[]) {
     for (int i = 0; i < maxPopulation; i++) {
-        population[i] = createNewString();
+        population[i].text = createNewString();
+        population[i].fitness = 0;
     }
     
     select();
