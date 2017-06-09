@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <vector>
+#include <math.h>
 #define maxPopulation 1500
 using namespace std;
 using std::vector;
@@ -42,6 +43,7 @@ void select() {
                 population[i].fitness++;
             }
         }
+        population[i].fitness = pow(population[i].fitness, 2);
         if (maxFitness < population[i].fitness) {
             maxFitness = population[i].fitness;
             best = population[i].text;
