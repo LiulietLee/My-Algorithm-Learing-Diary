@@ -7,6 +7,7 @@
 //
 
 #include <iostream>
+#include <string>
 #include <vector>
 #include <math.h>
 #define maxPopulation 1500
