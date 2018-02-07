@@ -1,5 +1,5 @@
 #define MAXN 100000000
-#define MAXND 10000000 // MAXND = MAXN / 10
+#define MAXND MAXN / 10
 
 bool isPrime[MAXN + 1];
 int prime[MAXND];
