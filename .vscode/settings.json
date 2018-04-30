@@ -7,5 +7,6 @@
         "queue": "cpp",
         "stack": "cpp",
         "random": "cpp"
-    }
+    },
+    "git.ignoreLimitWarning": true
 }
