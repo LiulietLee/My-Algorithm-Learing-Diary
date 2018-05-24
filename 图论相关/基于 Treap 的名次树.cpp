@@ -1,29 +1,3 @@
-#include <iostream>
-#include <cstdio>
-#include <cmath>
-#include <map>
-#include <set>
-#include <vector>
-#include <queue>
-#include <string>
-#include <cstring>
-#include <sstream>
-#include <algorithm>
-#include <functional>
-#include <fstream>
-#define MAXSIZE 200010
-#define MAXN 1010
-#define MAXND MAXN / 10
-#define INF 99999999
-#define MAXEDGE 1000000
-#define MAXVERTEX 510
-#define EPS 0.000001
-#define PI 3.14159265
-#define MOD 1000000009
-#define nil NULL
-typedef long long ll;
-using namespace std;
-
 struct node {
     node *ch[2];
     int priority, value, size = 1;
@@ -88,6 +62,7 @@ void remove(node* &n, int x) {
     } else {
         remove(n->ch[d], x);
     }
+    if (n != nil) n->maintain();
 }
 
 node* getKthNode(node* n, int k) {
