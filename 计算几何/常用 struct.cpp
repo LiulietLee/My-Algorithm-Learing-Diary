@@ -8,6 +8,10 @@ Point operator - (const Point &a, const Point &b) {
     return Point(a.x - b.x, a.y - b.y);
 }
 
+Point operator + (const Point &a, const Point &b) {
+    return Point(a.x + b.x, a.y + b.y);
+}
+
 struct Circle {
     Point center;
     double radius;
@@ -45,10 +49,23 @@ struct Vector {
 double operator * (const Vector &a, const Vector &b) {
     return a.x * b.x + a.y * b.y;
 }
+// 向量数乘
+Vector operator * (const double &a, const Vector &b) {
+    return Vector(b.x * a, b.y * a);
+}
+
+// 向量叉积的模
+double cross(Vector a, Vector b) {
+    return a.x * b.y - a.y * b.x;
+}
 
 // 求两向量夹角余弦值
 double cosValueOfTwoVectors(Vector u, Vector v) {
     return (u * v) / (u.length() * v.length());
+}
+
+bool doubleEqual(double a, double b) {
+    return fabs(a - b) < EPS;
 }
 
 struct Line {
@@ -66,4 +83,39 @@ struct Line {
     double length() {
         return sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
+    // 判断点是否在线上
+    bool isContainPoint(Point p) {
+        return doubleEqual(cross(Vector(p1 - p), Vector(p2 - p)), 0) && Vector(p1 - p) * Vector(p2 - p) < EPS;
+    }
 };
+
+struct InfinityLine {
+    double k, b;
+    InfinityLine(double k = 0, double b = 0):
+        k(k), b(b) {}
+    // 获取 x 对应的 y 值
+    double valueOf(double x) {
+        return k * x + b;
+    }
+};
+
+// 求两直线交点，没有交点时返回 nil
+Point* intersectionOfInfinityLines(InfinityLine a, InfinityLine b) {
+    if (doubleEqual(a.k, b.k)) return nil;
+    double x = (b.b - a.b) / (a.k - b.k);
+    double y = a.valueOf(x);
+    static Point p = Point(x, y);
+    return &p;
+}
+
+// 求两线段交点，没有交点时返回 nil
+Point* intersectionOfLines(Line a, Line b) {
+    if (doubleEqual(cross(a.toVector(), b.toVector()), 0)) return nil;
+    Vector offset = (cross(b.toVector(), Vector(b.p1 - a.p1)) / cross(b.toVector(), Vector(a.p2 - a.p1))) * Vector(a.p2 - a.p1);
+    static Point p = a.p1 + offset.toPoint();
+    if (a.isContainPoint(p) && b.isContainPoint(p)) {
+        return &p;
+    } else {
+        return nil;
+    }
+}
