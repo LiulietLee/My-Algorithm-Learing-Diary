@@ -102,17 +102,19 @@ struct InfinityLine {
 // 求两直线交点，没有交点时返回 nil
 Point* intersectionOfInfinityLines(InfinityLine a, InfinityLine b) {
     if (doubleEqual(a.k, b.k)) return nil;
+    static Point p = Point();
     double x = (b.b - a.b) / (a.k - b.k);
     double y = a.valueOf(x);
-    static Point p = Point(x, y);
+    p = Point(x, y);
     return &p;
 }
 
 // 求两线段交点，没有交点时返回 nil
 Point* intersectionOfLines(Line a, Line b) {
     if (doubleEqual(cross(a.toVector(), b.toVector()), 0)) return nil;
+    static Point p = Point();
     Vector offset = (cross(b.toVector(), Vector(b.p1 - a.p1)) / cross(b.toVector(), Vector(a.p2 - a.p1))) * Vector(a.p2 - a.p1);
-    static Point p = a.p1 + offset.toPoint();
+    p = a.p1 + offset.toPoint();
     if (a.isContainPoint(p) && b.isContainPoint(p)) {
         return &p;
     } else {
