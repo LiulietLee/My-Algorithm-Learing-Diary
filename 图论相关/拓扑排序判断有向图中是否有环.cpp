@@ -1,23 +1,3 @@
-#include <iostream>
-#include <cstdio>
-#include <string>
-#include <cmath>
-#include <map>
-#include <vector>
-#include <queue>
-#include <ctime>
-#include <cstring>
-#include <algorithm>
-#define MAXSIZE 10010
-#define MAXN 20
-#define MAXND MAXN / 10
-#define MAXVERTEX 100010
-#define MAXEDGE 3000010
-#define INF 99999999
-#define nil NULL
-typedef long long ll;
-using namespace std;
-
 int vertics, edges;
 int deg[MAXVERTEX], removed[MAXVERTEX];
 vector<int> mp[MAXVERTEX];

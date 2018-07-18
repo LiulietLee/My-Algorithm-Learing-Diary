@@ -1,16 +1,15 @@
-#include <iostream>
 #define MAX 1001
-using namespace std;
 
 int main() {
     int inf = MAX, nodeCount, lineCount, x, y, s;
     int map[MAX][MAX];
     
-    for (int i = 0; i < MAX; i++)
-        for (int j = 0; j < MAX; j++){
+    for (int i = 0; i < MAX; i++) {
+        for (int j = 0; j < MAX; j++) {
             if (i == j) map[i][j] = 0;
             else map[i][j] = inf;
         }
+    }
     
     scanf("%d%d", &nodeCount, &lineCount);
     for (int i = 0; i < lineCount; i++) {

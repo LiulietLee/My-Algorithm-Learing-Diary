@@ -8,5 +8,6 @@
         "stack": "cpp",
         "random": "cpp"
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "editor.fontSize": 16
 }
