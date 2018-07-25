@@ -38,7 +38,7 @@ int bellman(int start, int end) {
     while (!que.empty()) {
         current = que.front();
         que.pop();
-        vis[current] = 1;
+        vis[current] = 0;
 
         for (int i = head[current]; ~i; i = edge[i].next) {
             if (dis[edge[i].to] > dis[current] + edge[i].w) {
