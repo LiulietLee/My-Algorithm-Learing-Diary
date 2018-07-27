@@ -15,24 +15,25 @@ void getNext(char str[], int len)
 	}
 }
 
-/// len - my_next[len] = ×îĞ¡Ñ­»·½Ú³¤¶È
+// è·å–æœ€å°å¾ªç¯èŠ‚é•¿åº¦
 int getMinRep(char s[])
 {
-    int len=strlen(s);
+    int len = strlen(s);
     getNext(s,len);
-    int min_repetend=len - my_next[len];
-    if(len % min_repetend == 0 && len != min_repetend)
+    int min_repetend = len - my_next[len];
+    if(len % min_repetend == 0 && len != min_repetend) {
         return min_repetend;
-    else
+	} else {
         return len;
+	}
 }
 
 /*
-	£¡£¡µ¥µ¥ÊÇÍ³¼Æ´ÎÊıµÄ»°£¬Ö»ÓÃ°ÑÓĞansµÄĞĞÈ¡Ïûµô×¢ÊÍ¾ÍºÃÁË£¡£¡
+ å•å•æ˜¯ç»Ÿè®¡æ¬¡æ•°çš„è¯ï¼Œåªç”¨æŠŠæœ‰ansçš„è¡Œå–æ¶ˆæ‰æ³¨é‡Šå°±å¥½äº†ï¼ï¼
 */
 bool kmp(char text[], char pattern[])
 {
-
+	
 	// int lastPos = -1;
 	// int ans = 0;
 	int n = (int)strlen(text);
@@ -47,16 +48,17 @@ bool kmp(char text[], char pattern[])
 			// if(lastPos < i) lastPos = i;
 			j++;
 		}
-		if(j == m-1){//³öÏÖÆ¥Åä£¬Ôò´æÔÚ
+		if(j == m-1){//å‡ºç°åŒ¹é…ï¼Œåˆ™å­˜åœ¨
 			// ans++;
 			// j = my_next[j];
-			// return lastPos - m + 2;//Ê×´Î³öÏÖµÄÎ»ÖÃ
-			return true;//ÊÇ·ñ´æÔÚ
+			// return lastPos - m + 2;//é¦–æ¬¡å‡ºç°çš„ä½ç½®
+			return true;//æ˜¯å¦å­˜åœ¨
 		}
 	}
-	// return ans;//·µ»ØÒ»¹²Æ¥Åä³öÏÖÁË¼¸´Î
+	// return ans;//è¿”å›ä¸€å…±åŒ¹é…å‡ºç°äº†å‡ æ¬¡
 	return false;
 }
+
 
 int main(void)
 {
