@@ -8,7 +8,7 @@ ll powerMod(ll a, ll b, ll c) {
     a %= c;
     while (b > 0) {
         if (b & 1) ans = (ans * a) % c;
-        b /= 2;
+        b >>= 1;
         a = (a * a) % c;
     }
     return ans;
