@@ -2,7 +2,7 @@
 #include <cstdio>
 typedef long long ll;
 
-// result = a ^ b % c
+// a 的逆元 = powerMod(a, MOD - 2, MOD)
 ll powerMod(ll a, ll b, ll c) {
     ll ans = 1;
     a %= c;
