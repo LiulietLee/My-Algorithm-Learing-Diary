@@ -3,9 +3,9 @@
 
 int a[MAXN];
 
-struct SegTree {
+struct Node {
     int l, r, dat;
-} t[MAXN * 4];
+} t[MAXN << 2];
 
 // use: build(1, 1, n);
 // build the seg tree
@@ -16,9 +16,9 @@ void build(int p, int l, int r) {
         return;
     }
     int mid = (l + r) / 2;
-    build(p * 2, l, mid);
-    build(p * 2 + 1, mid + 1, r);
-    t[p].dat = max(t[p * 2].dat, t[p * 2 + 1].dat);
+    build(p << 1, l, mid);
+    build(p << 1 | 1, mid + 1, r);
+    t[p].dat = max(t[p << 1].dat, t[p << 1 | 1].dat);
 }
 
 // use: change(1, x, v);
@@ -29,9 +29,9 @@ void change(int p, int x, int v) {
         return;
     }
     int mid = (t[p].l + t[p].r) / 2;
-    if (x <= mid) change(p * 2, x, v);
-    else change(p * 2 + 1, x, v);
-    t[p].dat = max(t[p * 2].dat, t[p * 2 + 1].dat);
+    if (x <= mid) change(p << 1, x, v);
+    else change(p << 1 | 1, x, v);
+    t[p].dat = max(t[p << 1].dat, t[p << 1 | 1].dat);
 }
 
 // use: cout << ask(1, l, r) << endl;
@@ -41,7 +41,7 @@ int ask(int p, int l, int r) {
         return t[p].dat;
     int mid = (t[p].l + t[p].r) / 2;
     int val = -INF;
-    if (l <= mid) val = max(val, ask(p * 2, l, r));
-    if (r > mid) val = max(val, ask(p * 2 + 1, l, r));
+    if (l <= mid) val = max(val, ask(p << 1, l, r));
+    if (r > mid) val = max(val, ask(p << 1 | 1, l, r));
     return val;
 }
