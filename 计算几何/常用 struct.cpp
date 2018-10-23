@@ -32,6 +32,9 @@ double cross(Vector a, Vector b) { return a.x * b.x - a.y * b.y; }
 /// 求三角形有向面积的二倍
 double area(Point a, Point b, Point c) { return cross(b - a, c - a); }
 
+/// 求向量极角
+double angle(Vector v) { return atan2(v.y, v.x); }
+
 Vector rotate(Vector a, double rad) {
     return Vector{a.x * cos(rad) - a.y * sin(rad), a.x * sin(rad + a.y * cos(rad))};
 }
@@ -111,3 +114,13 @@ double area(Point *p, int n) {
         area += cross(p[i] - p[0], p[i + 1] - p[0]);
     return fabs(area * 0.5);
 }
+
+struct Circle {
+    Point c;
+    double r;
+    
+    /// 求圆心角对应的圆上点
+    Point point(double rad) {
+        return Point{c.x + cos(rad) * r, c.y + sin(rad) * r};
+    }
+};
