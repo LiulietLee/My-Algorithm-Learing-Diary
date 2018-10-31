@@ -1,7 +1,7 @@
 // r == root
 int n, m, r, mod;
 
-int w[MAXN<<2], wt[MAXN<<2];
+int w[MAXN], wt[MAXN];
 int son[MAXN], id[MAXN], fa[MAXN], dep[MAXN], siz[MAXN], top[MAXN];
 int cnt, res;
 
