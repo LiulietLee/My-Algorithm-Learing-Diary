@@ -76,31 +76,21 @@ void split(Node *o, int k, Node* &left, Node* &right) {
     left->maintain();
 }
 
-struct SplaySequence {
-    int n;
-    Node seq[MAXN];
-    Node *root;
+char str[MAXN];
 
-    Node* build(int sz) {
-        if (!sz) return null;
-        Node *l = build(sz / 2);
-        Node *o = &seq[++n];
-        o->v = n;
-        o->flip = o->s = 0;
-        o->ch[0] = l;
-        o->ch[1] = build(sz - sz / 2 - 1);
-        o->maintain();
-        return o;
-    }
+Node* build(int l, int r) {
+    if (l >= r) return null;
+    int mid = (l + r) / 2;
+    Node *n = build(l, mid);
+    Node *o = new Node();
+    o->v = str[mid];
+    o->flip = o->s = 0;
+    o->ch[0] = n;
+    o->ch[1] = build(mid + 1, r);
+    o->maintain();
+    return o;
+}
 
-    void init(int sz) {
-        n = 0;
-        null->s = 0;
-        root = build(sz);
-    }
-};
-
-SplaySequence ss;
 vector<int> ans;
 
 void getAns(Node *o) {
@@ -110,28 +100,4 @@ void getAns(Node *o) {
         ans.push_back(o->v);
         getAns(o->ch[1]);
     }
-}
-
-int main() {
-    int n, m, a, b;
-
-    // uva11922
-    scanf("%d%d", &n, &m);
-    ss.init(n + 1);
-
-    while (m--) {
-        scanf("%d%d", &a, &b);
-        Node *left, *mid, *right, *o;
-        split(ss.root, a, left, o);
-        split(o, b - a + 1, mid, right);
-        mid->flip ^= 1;
-        ss.root = merge(merge(left, right), mid);
-    }
-
-    getAns(ss.root);
-    for (int i = 1; i < ans.size(); i++) {
-        printf("%d\n", ans[i] - 1);
-    }
-
-    return 0;
 }
