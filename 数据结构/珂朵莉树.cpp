@@ -15,7 +15,7 @@ void init(int n) {
     for (int i = 1; i <= n; i++) {
         s.insert(node(i, i, a[i]));
     }
-    s.insert(node(n + 1, n + 1, 0));
+    // s.insert(node(n + 1, n + 1, 0));
 }
 
 set<node>::iterator split(int pos) {
