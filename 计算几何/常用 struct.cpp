@@ -27,7 +27,7 @@ double dot(Vector a, Vector b) { return a.x * b.x + a.y * b.y; }
 double length(Vector a) { return sqrt(dot(a, a)); }
 double angle(Vector a, Vector b) { return acos(dot(a, b) / length(a) / length(b)); }
 
-double cross(Vector a, Vector b) { return a.x * b.x - a.y * b.y; }
+double cross(Vector a, Vector b) { return a.x * b.y - b.x * a.y; }
 
 /// 求三角形有向面积的二倍
 double area(Point a, Point b, Point c) { return cross(b - a, c - a); }
