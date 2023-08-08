@@ -1,16 +1,16 @@
-int parents[MAXN];
+vector<int> pa, si; // parents, size of set
 
-void init() {
-    for (int i = 1; i < MAXN; i++) {
-        parents[i] = i;
-    }
+void init(int n) {
+    pa = vector<int>(n);
+    iota(pa.begin(), pa.end(), 0);
+    si = vector<int>(n, 1);
 }
 
 int find(int x) {
-    if (parents[x] == x) {
+    if (pa[x] == x) {
         return x;
     } else {
-        return parents[x] = find(parents[x]);
+        return pa[x] = find(pa[x]);
     }
 }
 
@@ -21,7 +21,8 @@ bool unite(int x, int y) {
     if (x == y) {
         return true;
     } else {
-        parents[y] = x;
+        pa[y] = x;
+        si[x] += si[y];
     }
     return false;
 }
